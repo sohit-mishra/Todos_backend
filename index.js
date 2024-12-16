@@ -78,7 +78,7 @@ app.post('/api/login', async (req, res, next) => {
 });
 
 app.post('/api/token', async (req, res, next) => {
-    const { refreshToken } = req.cookies;
+    const refreshToken = req.body.refreshToken;
     if (!refreshToken) {
         return res.status(400).json({ message: "Refresh token missing." });
     }
@@ -142,7 +142,7 @@ app.post('/api/message', async (req, res, next) => {
     try {
         const message = new Message(req.body);
         const result = await message.save();
-        res.status(201).json({ message: "Message saved successfully", data: result });
+        res.status(200).json({ message: "Message saved successfully", data: result });
     } catch (error) {
         next(error);
     }
